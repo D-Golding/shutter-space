@@ -16,6 +16,8 @@ import { MdPinDrop } from "react-icons/md";
 import { IoLogoInstagram } from "react-icons/io5";
 import { LiaFacebookSquare } from "react-icons/lia";
 import { LiaPinterestSquare } from "react-icons/lia";
+import { MdNotifications } from "react-icons/md";
+import { FiClock } from "react-icons/fi";
 
 // Themes for light and dark mode
 const lightTheme = {
@@ -113,51 +115,6 @@ const ThemeToggle = styled.button`
   }
 `;
 
-const NavLinks = styled.div`
-  display: flex;
-  gap: 2.5rem;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const NavLink = styled.a`
-  text-decoration: none;
-  color: ${props => props.theme.text};
-  font-size: 1rem;
-  font-weight: 500;
-  position: relative;
-  transition: all 0.2s ease;
-
-  &:after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: ${props => props.theme.accent};
-    transition: width 0.3s ease;
-  }
-
-  &:hover {
-    color: ${props => props.theme.accent};
-    &:after {
-      width: 100%;
-    }
-  }
-`;
-
-const HamburgerMenu = styled.div`
-  display: none;
-  cursor: pointer;
-  
-  @media (max-width: 768px) {
-    display: block;
-  }
-`;
-
 const HeroSection = styled.section`
   height: 100vh;
   display: flex;
@@ -209,6 +166,19 @@ const HeroSubtitle = styled.p`
   @media (max-width: 768px) {
     font-size: 1.2rem;
   }
+`;
+
+const ComingSoonTag = styled.div`
+  background-color: ${props => props.theme.accent};
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  margin-bottom: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 `;
 
 const CTAButton = styled.button`
@@ -357,109 +327,41 @@ const GalleryMeta = styled.p`
   font-size: 0.9rem;
 `;
 
-const AboutContainer = styled.div`
+const SubscribeSection = styled.section`
+  padding: 5rem 5%;
+  background-color: ${props => props.theme.secondary};
+  text-align: center;
+`;
+
+const SubscribeContainer = styled.div`
+  max-width: 700px;
+  margin: 0 auto;
+`;
+
+const SubscribeDescription = styled.p`
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  color: ${props => props.isDark ? '#b0b0b0' : '#666'};
+`;
+
+const SubscribeForm = styled.form`
   display: flex;
-  align-items: center;
-  gap: 3rem;
-  max-width: 1000px;
+  max-width: 500px;
   margin: 0 auto;
   
   @media (max-width: 768px) {
     flex-direction: column;
-    text-align: center;
+    gap: 1rem;
   }
 `;
 
-const AboutImageContainer = styled.div`
+const SubscribeInput = styled.input`
   flex: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  aspect-ratio: 1;
-  max-width: 300px;
-  box-shadow: ${props => props.theme.cardShadow};
-  
-  @media (max-width: 768px) {
-    max-width: 200px;
-  }
-`;
-
-const AboutImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const AboutContent = styled.div`
-  flex: 2;
-`;
-
-const AboutTitle = styled.h3`
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-`;
-
-const AboutText = styled.p`
-  font-size: 1.1rem;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
-  color: ${props => props.isDark ? '#b0b0b0' : '#666'};
-`;
-
-const ContactContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  max-width: 1000px;
-  margin: 0 auto;
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const ContactInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-`;
-
-const ContactItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;
-
-const ContactIcon = styled.div`
-  font-size: 1.5rem;
-  color: ${props => props.theme.accent};
-  display: flex;
-`;
-
-const ContactText = styled.p`
-  font-size: 1.1rem;
-`;
-
-const ContactForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-`;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
-const FormLabel = styled.label`
-  font-size: 1rem;
-  font-weight: 500;
-`;
-
-const FormInput = styled.input`
-  padding: 0.8rem;
-  border-radius: 4px;
+  padding: 1rem 1.5rem;
+  border-radius: 4px 0 0 4px;
   border: 1px solid ${props => props.isDark ? '#555' : '#ddd'};
+  border-right: none;
   background-color: ${props => props.isDark ? '#333' : '#fff'};
   color: ${props => props.theme.text};
   font-size: 1rem;
@@ -468,38 +370,71 @@ const FormInput = styled.input`
     outline: none;
     border-color: ${props => props.theme.accent};
   }
-`;
-
-const FormTextarea = styled.textarea`
-  padding: 0.8rem;
-  border-radius: 4px;
-  border: 1px solid ${props => props.isDark ? '#555' : '#ddd'};
-  background-color: ${props => props.isDark ? '#333' : '#fff'};
-  color: ${props => props.theme.text};
-  font-size: 1rem;
-  min-height: 150px;
-  resize: vertical;
   
-  &:focus {
-    outline: none;
-    border-color: ${props => props.theme.accent};
+  @media (max-width: 768px) {
+    border-radius: 4px;
+    border-right: 1px solid ${props => props.isDark ? '#555' : '#ddd'};
   }
 `;
 
-const FormSubmit = styled.button`
-  padding: 1rem;
+const SubscribeButton = styled.button`
+  padding: 1rem 2rem;
   background-color: ${props => props.theme.accent};
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 0 4px 4px 0;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   
   &:hover {
     background-color: ${props => props.isDark ? '#5a90b7' : '#3a6a8e'};
   }
+  
+  @media (max-width: 768px) {
+    border-radius: 4px;
+  }
+`;
+
+const LaunchCountdown = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 3rem 0;
+  
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+`;
+
+const CountdownItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const CountdownNumber = styled.div`
+  font-size: 3rem;
+  font-weight: 700;
+  color: ${props => props.theme.accent};
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+
+const CountdownLabel = styled.div`
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: ${props => props.isDark ? '#999' : '#777'};
 `;
 
 const Footer = styled.footer`
@@ -576,30 +511,28 @@ function LandingPage() {
           <LogoImage src="/public/icon.jpeg" alt="Shutter Space Logo" />
           <LogoText>Shutter Space</LogoText>
         </Logo>
-        <NavLinks>
-          <NavLink href="#features">Features</NavLink>
-          <NavLink href="#gallery">Gallery</NavLink>
-          <NavLink href="#about">About</NavLink>
-          <NavLink href="#contact">Contact</NavLink>
-        </NavLinks>
         <ThemeToggle onClick={toggleTheme}>
           {isDarkMode ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
         </ThemeToggle>
-        <HamburgerMenu>☰</HamburgerMenu>
       </NavBar>
 
       <HeroSection>
         <HeroContent>
-          <HeroTitle>Capture Moments. Create Memories.</HeroTitle>
+          <ComingSoonTag>
+            <FiClock /> Coming Soon
+          </ComingSoonTag>
+          <HeroTitle>Shutter Space</HeroTitle>
           <HeroSubtitle>
             A professional photography portfolio platform designed to showcase your best work with style and elegance.
           </HeroSubtitle>
-          <CTAButton>Explore Gallery</CTAButton>
+          <CTAButton onClick={() => document.getElementById('subscribe').scrollIntoView({ behavior: 'smooth' })}>
+            Get Early Access
+          </CTAButton>
         </HeroContent>
       </HeroSection>
 
-      <Section id="features">
-        <SectionTitle>Features</SectionTitle>
+      <Section>
+        <SectionTitle>What to Expect</SectionTitle>
         <FeaturesContainer>
           <FeatureCard>
             <FeatureIcon>
@@ -663,8 +596,8 @@ function LandingPage() {
         </FeaturesContainer>
       </Section>
 
-      <Section id="gallery">
-        <SectionTitle>Featured Work</SectionTitle>
+      <Section>
+        <SectionTitle>Sneak Peek</SectionTitle>
         <GalleryGrid>
           <GalleryItem>
             <GalleryImage src="/public/pic1.jpeg" alt="Photography sample 1" />
@@ -689,108 +622,47 @@ function LandingPage() {
               <GalleryMeta>Studio Lighting • Nikon Z6</GalleryMeta>
             </GalleryOverlay>
           </GalleryItem>
-
-          <GalleryItem>
-            <GalleryImage src="/public/pic4.jpeg" alt="Photography sample 4" />
-            <GalleryOverlay className="overlay">
-              <GalleryTitle>Wildlife Capture</GalleryTitle>
-              <GalleryMeta>Safari Series • Canon 600mm f/4</GalleryMeta>
-            </GalleryOverlay>
-          </GalleryItem>
-
-          <GalleryItem>
-            <GalleryImage src="/public/pic5.jpeg" alt="Photography sample 5" />
-            <GalleryOverlay className="overlay">
-              <GalleryTitle>Macro World</GalleryTitle>
-              <GalleryMeta>Insect Close-up • 100mm Macro</GalleryMeta>
-            </GalleryOverlay>
-          </GalleryItem>
-
-          <GalleryItem>
-            <GalleryImage src="/public/pic6.jpeg" alt="Photography sample 6" />
-            <GalleryOverlay className="overlay">
-              <GalleryTitle>Street Photography</GalleryTitle>
-              <GalleryMeta>Urban Life • Fujifilm X-T4</GalleryMeta>
-            </GalleryOverlay>
-          </GalleryItem>
         </GalleryGrid>
       </Section>
 
-      <Section id="about">
-        <SectionTitle>About the Photographer</SectionTitle>
-        <AboutContainer>
-          <AboutImageContainer>
-            <AboutImage src="/public/profile.jpeg" alt="Photographer profile" />
-          </AboutImageContainer>
-          <AboutContent>
-            <AboutTitle>Capturing Stories Through Lenses</AboutTitle>
-            <AboutText isDark={isDarkMode}>
-              With over 10 years of professional experience, I've developed a distinctive style that blends technical precision with artistic vision. My work spans multiple genres, from breathtaking landscapes to intimate portraits and dynamic urban scenes.
-            </AboutText>
-            <AboutText isDark={isDarkMode}>
-              I believe photography is more than just taking pictures—it's about freezing moments in time, telling stories, and evoking emotions. Every image in my portfolio represents a unique narrative, captured with passion and crafted with meticulous attention to detail.
-            </AboutText>
-            <CTAButton>View Full Portfolio</CTAButton>
-          </AboutContent>
-        </AboutContainer>
-      </Section>
+      <SubscribeSection id="subscribe">
+        <SubscribeContainer>
+          <SectionTitle>Be the First to Know</SectionTitle>
+          <SubscribeDescription isDark={isDarkMode}>
+            Join our waitlist to receive exclusive updates and be the first to know when Shutter Space launches. Early subscribers will receive priority access and special features.
+          </SubscribeDescription>
 
-      <Section id="contact">
-        <SectionTitle>Get In Touch</SectionTitle>
-        <ContactContainer>
-          <ContactInfo>
-            <AboutTitle>Let's Discuss Your Project</AboutTitle>
-            <AboutText isDark={isDarkMode}>
-              Whether you're looking for a professional photographer for your event, need stunning imagery for your brand, or want to collaborate on a creative project, I'm here to help bring your vision to life.
-            </AboutText>
+          <LaunchCountdown>
+            <CountdownItem>
+              <CountdownNumber>30</CountdownNumber>
+              <CountdownLabel isDark={isDarkMode}>Days</CountdownLabel>
+            </CountdownItem>
+            <CountdownItem>
+              <CountdownNumber>12</CountdownNumber>
+              <CountdownLabel isDark={isDarkMode}>Hours</CountdownLabel>
+            </CountdownItem>
+            <CountdownItem>
+              <CountdownNumber>45</CountdownNumber>
+              <CountdownLabel isDark={isDarkMode}>Minutes</CountdownLabel>
+            </CountdownItem>
+            <CountdownItem>
+              <CountdownNumber>22</CountdownNumber>
+              <CountdownLabel isDark={isDarkMode}>Seconds</CountdownLabel>
+            </CountdownItem>
+          </LaunchCountdown>
 
-            <ContactItem>
-              <ContactIcon>
-                <BsEnvelopeAt />
-              </ContactIcon>
-              <ContactText>contact@shutterspace.com</ContactText>
-            </ContactItem>
-
-            <ContactItem>
-              <ContactIcon>
-                <ImMobile />
-              </ContactIcon>
-              <ContactText>+1 (555) 123-4567</ContactText>
-            </ContactItem>
-
-            <ContactItem>
-              <ContactIcon>
-                <MdPinDrop />
-              </ContactIcon>
-              <ContactText>Photography Studio, 123 Creative Ave, Art District</ContactText>
-            </ContactItem>
-          </ContactInfo>
-
-          <ContactForm>
-            <FormGroup>
-              <FormLabel>Name</FormLabel>
-              <FormInput type="text" placeholder="Your Name" isDark={isDarkMode} />
-            </FormGroup>
-
-            <FormGroup>
-              <FormLabel>Email</FormLabel>
-              <FormInput type="email" placeholder="your@email.com" isDark={isDarkMode} />
-            </FormGroup>
-
-            <FormGroup>
-              <FormLabel>Subject</FormLabel>
-              <FormInput type="text" placeholder="How can I help you?" isDark={isDarkMode} />
-            </FormGroup>
-
-            <FormGroup>
-              <FormLabel>Message</FormLabel>
-              <FormTextarea placeholder="Tell me about your project..." isDark={isDarkMode} />
-            </FormGroup>
-
-            <FormSubmit isDark={isDarkMode}>Send Message</FormSubmit>
-          </ContactForm>
-        </ContactContainer>
-      </Section>
+          <SubscribeForm>
+            <SubscribeInput
+              type="email"
+              placeholder="Enter your email address"
+              isDark={isDarkMode}
+            />
+            <SubscribeButton isDark={isDarkMode}>
+              <MdNotifications /> Notify Me
+            </SubscribeButton>
+          </SubscribeForm>
+        </SubscribeContainer>
+      </SubscribeSection>
 
       <Footer>
         <FooterLogo>
@@ -800,7 +672,7 @@ function LandingPage() {
 
         <FooterContent>
           <FooterText isDark={isDarkMode}>
-            A professional photography portfolio platform designed to showcase your best work with style and elegance.
+            Coming soon - a professional photography portfolio platform designed to showcase your best work with style and elegance.
           </FooterText>
 
           <SocialLinks>
