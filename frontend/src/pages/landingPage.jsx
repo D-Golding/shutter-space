@@ -19,6 +19,13 @@ import { LiaPinterestSquare } from "react-icons/lia";
 import { MdNotifications } from "react-icons/md";
 import { FiClock } from "react-icons/fi";
 
+// Import images
+import iconImage from '../assets/icon.jpeg';
+import heroImage from '../assets/hero.jpeg';
+import pic1Image from '../assets/pic1.jpeg';
+import pic2Image from '../assets/pic2.jpeg';
+import pic3Image from '../assets/pic3.jpeg';
+
 // Themes for light and dark mode
 const lightTheme = {
   primary: '#ffffff',
@@ -133,7 +140,9 @@ const HeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('/public/hero.jpeg') center/cover no-repeat;
+    background-image: url(${heroImage});
+    background-size: cover;
+    background-position: center;
     filter: brightness(0.7);
     z-index: -1;
   }
@@ -508,7 +517,7 @@ function LandingPage() {
       <GlobalStyle />
       <NavBar>
         <Logo>
-          <LogoImage src="/public/icon.jpeg" alt="Shutter Space Logo" />
+          <LogoImage src={iconImage} alt="Shutter Space Logo" />
           <LogoText>Shutter Space</LogoText>
         </Logo>
         <ThemeToggle onClick={toggleTheme}>
@@ -600,7 +609,7 @@ function LandingPage() {
         <SectionTitle>Sneak Peek</SectionTitle>
         <GalleryGrid>
           <GalleryItem>
-            <GalleryImage src="/public/pic1.jpeg" alt="Photography sample 1" />
+            <GalleryImage src={pic1Image} alt="Photography sample 1" />
             <GalleryOverlay className="overlay">
               <GalleryTitle>Urban Exploration</GalleryTitle>
               <GalleryMeta>City Architecture • Sony A7IV</GalleryMeta>
@@ -608,7 +617,7 @@ function LandingPage() {
           </GalleryItem>
 
           <GalleryItem>
-            <GalleryImage src="/public/pic2.jpeg" alt="Photography sample 2" />
+            <GalleryImage src={pic2Image} alt="Photography sample 2" />
             <GalleryOverlay className="overlay">
               <GalleryTitle>Natural Landscapes</GalleryTitle>
               <GalleryMeta>Mountain Range • Canon EOS R5</GalleryMeta>
@@ -616,7 +625,7 @@ function LandingPage() {
           </GalleryItem>
 
           <GalleryItem>
-            <GalleryImage src="/public/pic3.jpeg" alt="Photography sample 3" />
+            <GalleryImage src={pic3Image} alt="Photography sample 3" />
             <GalleryOverlay className="overlay">
               <GalleryTitle>Portrait Session</GalleryTitle>
               <GalleryMeta>Studio Lighting • Nikon Z6</GalleryMeta>
@@ -666,7 +675,7 @@ function LandingPage() {
 
       <Footer>
         <FooterLogo>
-          <LogoImage src="/public/icon.jpeg" alt="Shutter Space Logo" />
+          <LogoImage src={iconImage} alt="Shutter Space Logo" />
           <LogoText>Shutter Space</LogoText>
         </FooterLogo>
 
