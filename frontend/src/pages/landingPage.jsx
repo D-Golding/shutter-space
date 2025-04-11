@@ -18,20 +18,27 @@ import { LiaFacebookSquare } from "react-icons/lia";
 import { LiaPinterestSquare } from "react-icons/lia";
 import { MdNotifications } from "react-icons/md";
 import { FiClock } from "react-icons/fi";
+import { FaRegImage } from "react-icons/fa";
+import { MdCloudUpload } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
 
 // Import images
 import iconImage from '../assets/icon.jpeg';
 import heroImage from '../assets/hero.jpeg';
-import pic1Image from '../assets/pic1.jpeg';
-import pic2Image from '../assets/pic2.jpeg';
-import pic3Image from '../assets/pic3.jpeg';
+import shutterpic1 from '../assets/pic1.jpeg';
+import shutterpic2 from '../assets/pic2.jpeg';
+import shutterpic3 from '../assets/pic3.jpeg';
+import shutterpic4 from '../assets/pic4.jpeg';
+import shutterpic5 from '../assets/pic5.jpeg';
+import shutterpic6 from '../assets/pic6.jpeg';
+import profile from '../assets/profile.jpeg';
 
 // Themes for light and dark mode
 const lightTheme = {
   primary: '#ffffff',
   secondary: '#f8f9fa',
-  text: '#333333',
-  accent: '#4e7a9e',
+  text: '#2C3E50', // Dark blue for better contrast
+  accent: '#1ABC9C', // Teal from the portfolio component
   navBg: 'rgba(255, 255, 255, 0.9)',
   cardBg: '#ffffff',
   cardShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
@@ -41,32 +48,34 @@ const lightTheme = {
 const darkTheme = {
   primary: '#121212',
   secondary: '#1e1e1e',
-  text: '#e0e0e0',
-  accent: '#6ba0c7',
+  text: '#ECF0F1', // Light gray
+  accent: '#1ABC9C', // Keep the teal accent
   navBg: 'rgba(18, 18, 18, 0.95)',
-  cardBg: '#1e1e1e',
+  cardBg: '#1E1F26', // From the portfolio component
   cardShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
   footerBg: '#0a0a0a',
 };
 
 // Global styles
 const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
   }
 
   body {
     background-color: ${props => props.theme.primary};
     color: ${props => props.theme.text};
+    font-family: 'Inter', sans-serif;
     transition: all 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
   }
 `;
 
@@ -95,13 +104,20 @@ const Logo = styled.div`
 
 const LogoImage = styled.img`
   height: 40px;
-  width: auto;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 
 const LogoText = styled.h1`
   font-size: 1.8rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 1px;
+  background: linear-gradient(to right, 
+    ${props => props.theme.text}, 
+    ${props => props.theme.accent});
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const ThemeToggle = styled.button`
@@ -151,15 +167,18 @@ const HeroSection = styled.section`
 const HeroContent = styled.div`
   max-width: 800px;
   z-index: 1;
-  padding: 2rem;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.6);
+  padding: 2.5rem;
+  border-radius: 16px;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
 `;
 
 const HeroTitle = styled.h1`
   font-size: 3.5rem;
   margin-bottom: 1.5rem;
   color: white;
+  font-weight: 800;
+  letter-spacing: 2px;
   
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -171,6 +190,7 @@ const HeroSubtitle = styled.p`
   margin-bottom: 2rem;
   color: #f0f0f0;
   line-height: 1.6;
+  font-weight: 300;
   
   @media (max-width: 768px) {
     font-size: 1.2rem;
@@ -191,13 +211,13 @@ const ComingSoonTag = styled.div`
 `;
 
 const CTAButton = styled.button`
-  padding: 1rem 2rem;
-  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  background-color: ${props => props.theme.accent};
+  background: linear-gradient(to right, ${props => props.theme.accent}, ${props => props.theme.accent}DD);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   
@@ -245,14 +265,16 @@ const FeaturesContainer = styled.div`
 
 const FeatureCard = styled.div`
   background-color: ${props => props.theme.cardBg};
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 2rem;
   box-shadow: ${props => props.theme.cardShadow};
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid ${props => props.isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'};
   
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    border-color: ${props => props.theme.accent}50;
   }
 `;
 
@@ -262,6 +284,14 @@ const FeatureIcon = styled.div`
   color: ${props => props.theme.accent};
   display: flex;
   align-items: center;
+  
+  svg {
+    background: linear-gradient(135deg, 
+      ${props => props.theme.accent}20, 
+      ${props => props.theme.accent}10);
+    padding: 10px;
+    border-radius: 12px;
+  }
 `;
 
 const FeatureTitle = styled.h3`
@@ -277,29 +307,50 @@ const FeatureDescription = styled.p`
 
 const GalleryGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 300px);
   gap: 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
   
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 250px);
+  }
+  
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 250px);
   }
 `;
 
 const GalleryItem = styled.div`
   position: relative;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
-  aspect-ratio: 3/2;
+  grid-column: ${props => props.wide ? 'span 2' : 'span 1'};
+  grid-row: ${props => props.tall ? 'span 2' : 'span 1'};
+  box-shadow: 0 5px 15px rgba(0, 0, 0, ${props => props.isDark ? '0.3' : '0.1'});
+  transition: all 0.3s ease;
   cursor: pointer;
   
-  &:hover img {
-    transform: scale(1.05);
+  @media (max-width: 768px) {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
   }
   
-  &:hover .overlay {
-    opacity: 1;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, ${props => props.isDark ? '0.4' : '0.15'});
+    
+    img {
+      transform: scale(1.1);
+      filter: brightness(1.1);
+    }
+    
+    .overlay {
+      opacity: 1;
+    }
   }
 `;
 
@@ -316,7 +367,7 @@ const GalleryOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -329,32 +380,128 @@ const GalleryTitle = styled.h4`
   color: white;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  font-weight: 600;
 `;
 
 const GalleryMeta = styled.p`
-  color: #d0d0d0;
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.9rem;
 `;
 
-const SubscribeSection = styled.section`
+const TestimonialSection = styled.section`
   padding: 5rem 5%;
   background-color: ${props => props.theme.secondary};
   text-align: center;
 `;
 
-const SubscribeContainer = styled.div`
-  max-width: 700px;
+const TestimonialContainer = styled.div`
+  max-width: 900px;
   margin: 0 auto;
 `;
 
-const SubscribeDescription = styled.p`
+const TestimonialCards = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+`;
+
+const TestimonialCard = styled.div`
+  background-color: ${props => props.theme.cardBg};
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: ${props => props.theme.cardShadow};
+  text-align: left;
+  position: relative;
+  border-left: 4px solid ${props => props.theme.accent};
+  
+  &::before {
+    content: '"';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 5rem;
+    color: ${props => props.theme.accent}20;
+    font-family: 'Georgia', serif;
+    line-height: 1;
+  }
+`;
+
+const TestimonialText = styled.p`
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: ${props => props.isDark ? '#b0b0b0' : '#666'};
+  font-style: italic;
+`;
+
+const TestimonialAuthor = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const AuthorAvatar = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
+const AuthorInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const AuthorName = styled.span`
+  font-weight: 600;
+  font-size: 1rem;
+`;
+
+const AuthorTitle = styled.span`
+  font-size: 0.9rem;
+  color: ${props => props.isDark ? '#999' : '#777'};
+`;
+
+const EarlyAccessSection = styled.section`
+  padding: 5rem 5%;
+  background-color: ${props => props.theme.primary};
+  text-align: center;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(${shutterpic3});
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.2);
+    z-index: 0;
+  }
+`;
+
+const EarlyAccessContainer = styled.div`
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+`;
+
+const EarlyAccessTitle = styled(SectionTitle)`
+  color: white;
+`;
+
+const EarlyAccessDescription = styled.p`
   font-size: 1.2rem;
   line-height: 1.8;
   margin-bottom: 2.5rem;
-  color: ${props => props.isDark ? '#b0b0b0' : '#666'};
+  color: rgba(255, 255, 255, 0.9);
 `;
 
-const SubscribeForm = styled.form`
+const EarlyAccessForm = styled.form`
   display: flex;
   max-width: 500px;
   margin: 0 auto;
@@ -365,33 +512,38 @@ const SubscribeForm = styled.form`
   }
 `;
 
-const SubscribeInput = styled.input`
+const EarlyAccessInput = styled.input`
   flex: 1;
   padding: 1rem 1.5rem;
-  border-radius: 4px 0 0 4px;
-  border: 1px solid ${props => props.isDark ? '#555' : '#ddd'};
+  border-radius: 8px 0 0 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-right: none;
-  background-color: ${props => props.isDark ? '#333' : '#fff'};
-  color: ${props => props.theme.text};
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
   font-size: 1rem;
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
   
   &:focus {
     outline: none;
     border-color: ${props => props.theme.accent};
+    background-color: rgba(0, 0, 0, 0.6);
   }
   
   @media (max-width: 768px) {
-    border-radius: 4px;
-    border-right: 1px solid ${props => props.isDark ? '#555' : '#ddd'};
+    border-radius: 8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
   }
 `;
 
-const SubscribeButton = styled.button`
+const EarlyAccessButton = styled.button`
   padding: 1rem 2rem;
   background-color: ${props => props.theme.accent};
   color: white;
   border: none;
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 8px 8px 0;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -402,11 +554,11 @@ const SubscribeButton = styled.button`
   gap: 0.5rem;
   
   &:hover {
-    background-color: ${props => props.isDark ? '#5a90b7' : '#3a6a8e'};
+    background-color: ${props => props.isDark ? '#0fa994' : '#0fa994'};
   }
   
   @media (max-width: 768px) {
-    border-radius: 4px;
+    border-radius: 8px;
   }
 `;
 
@@ -425,12 +577,16 @@ const CountdownItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  border-radius: 8px;
+  min-width: 80px;
 `;
 
 const CountdownNumber = styled.div`
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: ${props => props.theme.accent};
+  color: white;
   line-height: 1;
   margin-bottom: 0.5rem;
   
@@ -443,7 +599,7 @@ const CountdownLabel = styled.div`
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: ${props => props.isDark ? '#999' : '#777'};
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const Footer = styled.footer`
@@ -496,7 +652,7 @@ const Copyright = styled.p`
   color: ${props => props.isDark ? '#777' : '#999'};
 `;
 
-// Main Landing Page Component
+// Main Landing Page Component for Customers
 function LandingPage() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -512,13 +668,57 @@ function LandingPage() {
 
   const theme = isDarkMode ? darkTheme : lightTheme;
 
+  // Gallery items
+  const galleryItems = [
+    {
+      id: 1,
+      image: shutterpic1,
+      title: "Responsive Gallery Layouts",
+      description: "Adaptive grid & carousel layouts",
+      wide: false,
+      tall: false
+    },
+    {
+      id: 2,
+      image: shutterpic2,
+      title: "Advanced Lightbox",
+      description: "High-resolution zoom capabilities",
+      wide: true,
+      tall: false
+    },
+    {
+      id: 3,
+      image: shutterpic3,
+      title: "Client Access Portal",
+      description: "Secure private galleries",
+      wide: false,
+      tall: true
+    },
+    {
+      id: 4,
+      image: shutterpic4,
+      title: "EXIF Data Display",
+      description: "Share your technical process",
+      wide: false,
+      tall: false
+    },
+    {
+      id: 5,
+      image: shutterpic5,
+      title: "Location Mapping",
+      description: "Plot your photoshoot locations",
+      wide: true,
+      tall: false
+    }
+  ];
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <NavBar>
         <Logo>
           <LogoImage src={iconImage} alt="Shutter Space Logo" />
-          <LogoText>Shutter Space</LogoText>
+          <LogoText>ShutterSpace</LogoText>
         </Logo>
         <ThemeToggle onClick={toggleTheme}>
           {isDarkMode ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
@@ -530,158 +730,211 @@ function LandingPage() {
           <ComingSoonTag>
             <FiClock /> Coming Soon
           </ComingSoonTag>
-          <HeroTitle>Shutter Space</HeroTitle>
+          <HeroTitle>ShutterSpace</HeroTitle>
           <HeroSubtitle>
-            A professional photography portfolio platform designed to showcase your best work with style and elegance.
+            Elevate your photography portfolio with an elegant platform designed for professionals who want their work to stand out.
           </HeroSubtitle>
-          <CTAButton onClick={() => document.getElementById('subscribe').scrollIntoView({ behavior: 'smooth' })}>
-            Get Early Access
+          <CTAButton onClick={() => document.getElementById('early-access').scrollIntoView({ behavior: 'smooth' })}>
+            Join Early Access
           </CTAButton>
         </HeroContent>
       </HeroSection>
 
       <Section>
-        <SectionTitle>What to Expect</SectionTitle>
+        <SectionTitle>For Photographers Who Demand More</SectionTitle>
         <FeaturesContainer>
-          <FeatureCard>
+          <FeatureCard isDark={isDarkMode}>
             <FeatureIcon>
               <GrGallery size={42} />
             </FeatureIcon>
-            <FeatureTitle>Responsive Galleries</FeatureTitle>
+            <FeatureTitle>Stunning Gallery Layouts</FeatureTitle>
             <FeatureDescription isDark={isDarkMode}>
-              Showcase your work with grid, masonry, or carousel layouts that adapt to any screen size with smooth animations.
+              Showcase your work with responsive grid, masonry, and carousel layouts that adapt beautifully to any device.
             </FeatureDescription>
           </FeatureCard>
 
-          <FeatureCard>
+          <FeatureCard isDark={isDarkMode}>
             <FeatureIcon>
               <GiMagnifyingGlass size={42} />
             </FeatureIcon>
-            <FeatureTitle>Advanced Lightbox</FeatureTitle>
+            <FeatureTitle>Detail-Focused Lightbox</FeatureTitle>
             <FeatureDescription isDark={isDarkMode}>
-              High-resolution zoom and pan capabilities let viewers appreciate every detail of your photography.
+              Let viewers explore the finest details of your work with high-resolution zoom and pan capabilities.
             </FeatureDescription>
           </FeatureCard>
 
-          <FeatureCard>
+          <FeatureCard isDark={isDarkMode}>
             <FeatureIcon>
               <GiCog size={42} />
             </FeatureIcon>
-            <FeatureTitle>EXIF Data Display</FeatureTitle>
+            <FeatureTitle>Technical Transparency</FeatureTitle>
             <FeatureDescription isDark={isDarkMode}>
-              Show camera settings with visual indicators to share your technical process with viewers and students.
+              Share your expertise with elegant EXIF data displays that reveal the technical process behind each image.
             </FeatureDescription>
           </FeatureCard>
 
-          <FeatureCard>
+          <FeatureCard isDark={isDarkMode}>
             <FeatureIcon>
               <LuFileSliders size={42} />
             </FeatureIcon>
-            <FeatureTitle>Before/After Slider</FeatureTitle>
+            <FeatureTitle>Show Your Editing Skills</FeatureTitle>
             <FeatureDescription isDark={isDarkMode}>
-              Demonstrate your editing skills with an interactive comparison slider showcasing your pre and post-processing work.
+              Demonstrate your editing prowess with before/after comparison sliders that showcase your post-processing talent.
             </FeatureDescription>
           </FeatureCard>
 
-          <FeatureCard>
+          <FeatureCard isDark={isDarkMode}>
             <FeatureIcon>
               <GrGlobe size={42} />
             </FeatureIcon>
-            <FeatureTitle>Location Mapping</FeatureTitle>
+            <FeatureTitle>Tell Your Location Story</FeatureTitle>
             <FeatureDescription isDark={isDarkMode}>
-              Plot your photoshoots on interactive maps to tell the story behind your journeys and photography locations.
+              Map your photographic journey with interactive location displays that add context and narrative to your portfolio.
             </FeatureDescription>
           </FeatureCard>
 
-          <FeatureCard>
+          <FeatureCard isDark={isDarkMode}>
             <FeatureIcon>
               <GiPadlock size={42} />
             </FeatureIcon>
-            <FeatureTitle>Client Access Portal</FeatureTitle>
+            <FeatureTitle>Professional Client Experience</FeatureTitle>
             <FeatureDescription isDark={isDarkMode}>
-              Securely share private galleries with clients using password protection and customized access controls.
+              Deliver a premium client experience with private galleries, password protection, and customized download options.
             </FeatureDescription>
           </FeatureCard>
         </FeaturesContainer>
       </Section>
 
       <Section>
-        <SectionTitle>Sneak Peek</SectionTitle>
+        <SectionTitle>Preview Our Features</SectionTitle>
         <GalleryGrid>
-          <GalleryItem>
-            <GalleryImage src={pic1Image} alt="Photography sample 1" />
-            <GalleryOverlay className="overlay">
-              <GalleryTitle>Urban Exploration</GalleryTitle>
-              <GalleryMeta>City Architecture • Sony A7IV</GalleryMeta>
-            </GalleryOverlay>
-          </GalleryItem>
-
-          <GalleryItem>
-            <GalleryImage src={pic2Image} alt="Photography sample 2" />
-            <GalleryOverlay className="overlay">
-              <GalleryTitle>Natural Landscapes</GalleryTitle>
-              <GalleryMeta>Mountain Range • Canon EOS R5</GalleryMeta>
-            </GalleryOverlay>
-          </GalleryItem>
-
-          <GalleryItem>
-            <GalleryImage src={pic3Image} alt="Photography sample 3" />
-            <GalleryOverlay className="overlay">
-              <GalleryTitle>Portrait Session</GalleryTitle>
-              <GalleryMeta>Studio Lighting • Nikon Z6</GalleryMeta>
-            </GalleryOverlay>
-          </GalleryItem>
+          {galleryItems.map(item => (
+            <GalleryItem key={item.id} wide={item.wide} tall={item.tall} isDark={isDarkMode}>
+              <GalleryImage src={item.image} alt={item.title} />
+              <GalleryOverlay className="overlay">
+                <GalleryTitle>{item.title}</GalleryTitle>
+                <GalleryMeta>{item.description}</GalleryMeta>
+              </GalleryOverlay>
+            </GalleryItem>
+          ))}
         </GalleryGrid>
       </Section>
 
-      <SubscribeSection id="subscribe">
-        <SubscribeContainer>
-          <SectionTitle>Be the First to Know</SectionTitle>
-          <SubscribeDescription isDark={isDarkMode}>
-            Join our waitlist to receive exclusive updates and be the first to know when Shutter Space launches. Early subscribers will receive priority access and special features.
-          </SubscribeDescription>
+      <TestimonialSection>
+        <TestimonialContainer>
+          <SectionTitle>What Photographers Are Saying</SectionTitle>
+          <TestimonialCards>
+            <TestimonialCard>
+              <TestimonialText isDark={isDarkMode}>
+                "As a travel photographer, I've been looking for a portfolio platform that can showcase both the visual impact and the story behind my work. ShutterSpace's location mapping feature is exactly what I needed to bring context to my photography journeys."
+              </TestimonialText>
+              <TestimonialAuthor>
+                <AuthorAvatar src={profile} alt="Sarah Chen" />
+                <AuthorInfo>
+                  <AuthorName>Sarah Chen</AuthorName>
+                  <AuthorTitle isDark={isDarkMode}>Travel Photographer</AuthorTitle>
+                </AuthorInfo>
+              </TestimonialAuthor>
+            </TestimonialCard>
+
+            <TestimonialCard>
+              <TestimonialText isDark={isDarkMode}>
+                "The before/after comparison slider has revolutionized how I showcase my editing work to clients. Being able to demonstrate my post-processing value has actually helped me increase my rates. This platform pays for itself!"
+              </TestimonialText>
+              <TestimonialAuthor>
+                <AuthorAvatar src={shutterpic2} alt="Michael Roberts" />
+                <AuthorInfo>
+                  <AuthorName>Michael Roberts</AuthorName>
+                  <AuthorTitle isDark={isDarkMode}>Portrait & Wedding Photographer</AuthorTitle>
+                </AuthorInfo>
+              </TestimonialAuthor>
+            </TestimonialCard>
+          </TestimonialCards>
+        </TestimonialContainer>
+      </TestimonialSection>
+
+      <EarlyAccessSection id="early-access">
+        <EarlyAccessContainer>
+          <EarlyAccessTitle>Be Among the First</EarlyAccessTitle>
+          <EarlyAccessDescription>
+            Join our exclusive early access list and be the first to experience ShutterSpace when we launch. Early adopters will receive premium features and special pricing.
+          </EarlyAccessDescription>
 
           <LaunchCountdown>
             <CountdownItem>
               <CountdownNumber>30</CountdownNumber>
-              <CountdownLabel isDark={isDarkMode}>Days</CountdownLabel>
+              <CountdownLabel>Days</CountdownLabel>
             </CountdownItem>
             <CountdownItem>
               <CountdownNumber>12</CountdownNumber>
-              <CountdownLabel isDark={isDarkMode}>Hours</CountdownLabel>
+              <CountdownLabel>Hours</CountdownLabel>
             </CountdownItem>
             <CountdownItem>
               <CountdownNumber>45</CountdownNumber>
-              <CountdownLabel isDark={isDarkMode}>Minutes</CountdownLabel>
+              <CountdownLabel>Minutes</CountdownLabel>
             </CountdownItem>
             <CountdownItem>
               <CountdownNumber>22</CountdownNumber>
-              <CountdownLabel isDark={isDarkMode}>Seconds</CountdownLabel>
+              <CountdownLabel>Seconds</CountdownLabel>
             </CountdownItem>
           </LaunchCountdown>
 
-          <SubscribeForm>
-            <SubscribeInput
+          <EarlyAccessForm>
+            <EarlyAccessInput
               type="email"
               placeholder="Enter your email address"
-              isDark={isDarkMode}
             />
-            <SubscribeButton isDark={isDarkMode}>
-              <MdNotifications /> Notify Me
-            </SubscribeButton>
-          </SubscribeForm>
-        </SubscribeContainer>
-      </SubscribeSection>
+            <EarlyAccessButton isDark={isDarkMode}>
+              <MdNotifications /> Get Priority Access
+            </EarlyAccessButton>
+          </EarlyAccessForm>
+        </EarlyAccessContainer>
+      </EarlyAccessSection>
+
+      <Section>
+        <SectionTitle>Benefits for Professional Photographers</SectionTitle>
+        <FeaturesContainer>
+          <FeatureCard isDark={isDarkMode}>
+            <FeatureIcon>
+              <FaRegImage size={42} />
+            </FeatureIcon>
+            <FeatureTitle>Stand Out From the Crowd</FeatureTitle>
+            <FeatureDescription isDark={isDarkMode}>
+              Differentiate your photography business with an exceptional presentation that showcases your work in its best light.
+            </FeatureDescription>
+          </FeatureCard>
+
+          <FeatureCard isDark={isDarkMode}>
+            <FeatureIcon>
+              <MdCloudUpload size={42} />
+            </FeatureIcon>
+            <FeatureTitle>Effortless Management</FeatureTitle>
+            <FeatureDescription isDark={isDarkMode}>
+              Save time with intuitive organization tools, metadata extraction, and automated image optimization for all your devices.
+            </FeatureDescription>
+          </FeatureCard>
+
+          <FeatureCard isDark={isDarkMode}>
+            <FeatureIcon>
+              <FaUserCircle size={42} />
+            </FeatureIcon>
+            <FeatureTitle>Impress Your Clients</FeatureTitle>
+            <FeatureDescription isDark={isDarkMode}>
+              Deliver a premium client experience with private galleries, custom branding, and professional presentation options.
+            </FeatureDescription>
+          </FeatureCard>
+        </FeaturesContainer>
+      </Section>
 
       <Footer>
         <FooterLogo>
-          <LogoImage src={iconImage} alt="Shutter Space Logo" />
-          <LogoText>Shutter Space</LogoText>
+          <LogoImage src={iconImage} alt="ShutterSpace Logo" />
+          <LogoText>ShutterSpace</LogoText>
         </FooterLogo>
 
         <FooterContent>
           <FooterText isDark={isDarkMode}>
-            Coming soon - a professional photography portfolio platform designed to showcase your best work with style and elegance.
+            Coming soon - A professional photography portfolio platform designed to showcase your best work with style and elegance.
           </FooterText>
 
           <SocialLinks>
@@ -697,7 +950,7 @@ function LandingPage() {
           </SocialLinks>
 
           <Copyright isDark={isDarkMode}>
-            © {new Date().getFullYear()} Shutter Space. All rights reserved.
+            © {new Date().getFullYear()} ShutterSpace. All rights reserved.
           </Copyright>
         </FooterContent>
       </Footer>
